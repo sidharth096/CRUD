@@ -6,7 +6,7 @@ import router from './routes/index.js';
 const app = express();
 const PORT = configKey.BACKEND_PORT;
 
-
+app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Hello from the server!");
 });
