@@ -1,39 +1,41 @@
 import UserModel from "../models/user.model.js";
-import bcrypt from "bcrypt";
 
 export const createUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { firstName, lastName, dateOfBirth, gender, email, mobile, aadhar, address, state, district, phone, parentGuardianName, parentGuardianNumber } = req.body;
+
+        if (!firstName || !dateOfBirth || !gender || !email || !mobile || !aadhar || !address || !state || !district) {
             return res.status(400).json({ success: false, message: "Please enter all required fields" });
         }
 
-        const existingUser = await UserModel.findOne({ email: req.body.email });
+        const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({
-                success: false,
-                message: "User already exists"
-            });
+            return res.status(400).json({ success: false, message: "User already exists" });
         }
 
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const user = new UserModel({
+            firstName,
+            lastName,
+            dateOfBirth,
+            gender,
+            email,
+            mobile,
+            aadhar,
+            address,
+            state,
+            district,
+            phone,
+            parentGuardianName,
+            parentGuardianNumber,
+        });
 
-        const payload = {
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword
-        }
-
-        const user = new UserModel(payload);
         await user.save();
-
-        res.status(201).json({ success: true, message: "User created successfully",data:user });
+        res.status(201).json({ success: true, message: "User created successfully", data: user });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
-};  
+};
 
 export const getUser = async (req, res) => {
     try {
@@ -43,7 +45,7 @@ export const getUser = async (req, res) => {
         }
         res.status(200).json({ success: true, data: user });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -53,9 +55,19 @@ export const updateUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
+
         const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json({ success: true, data: updatedUser });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await UserModel.find();
+        res.status(200).json({ success: true, data: users });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
     }
 };
