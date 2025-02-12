@@ -6,7 +6,7 @@ const userRoute = Router();
 
 userRoute.get("/getUser/:id", getUser)
 userRoute.post("/create", createUser)
-userRoute.post("/updateUser/:id",updateUser)
+userRoute.put("/updateUser/:id",updateUser)
 userRoute.get("/getAllUsers",getAllUsers)
 
 export default userRoute

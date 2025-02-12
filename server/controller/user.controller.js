@@ -2,9 +2,9 @@ import UserModel from "../models/user.model.js";
 
 export const createUser = async (req, res) => {
     try {
-        const { firstName, lastName, dateOfBirth, gender, email, mobile, aadhar, address, state, district, phone, parentGuardianName, parentGuardianNumber } = req.body;
+        const { firstName, lastName, dateOfBirth, gender, email, mobile, aadhar, address, state, district, phone, parentGuardianName, parentGuardianNumber,pincode } = req.body;
 
-        if (!firstName || !dateOfBirth || !gender || !email || !mobile || !aadhar || !address || !state || !district) {
+        if (!firstName || !dateOfBirth || !gender || !email || !mobile || !aadhar || !address || !state || !district || !pincode) {
             return res.status(400).json({ success: false, message: "Please enter all required fields" });
         }
 

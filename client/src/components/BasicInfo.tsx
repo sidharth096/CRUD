@@ -1,11 +1,22 @@
 import { FaCheckCircle } from "react-icons/fa";
 import payment from "../assets/payment.png";
 
-const BasicInfo = () => {
+interface BasicInfoProps {
+  userData: {
+    firstName: string;
+    dateOfBirth: string;
+    mobile: string;
+    email: string;
+    aadhar: string;
+    address: string;
+  };
+}
+
+const BasicInfo: React.FC<BasicInfoProps> = ({ userData }) => {
   return (
-    <div className="mt-10 flex justify-between gap-6">
+    <div className="mt-10 flex flex-col xl:flex-row  gap-6">
       {/* Left Content */}
-      <div className="flex-1">
+      <div className="flex-1  md:w-auto max-w-3xl">
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-lg font-semibold text-gray-900">
             Basic Information
@@ -14,34 +25,35 @@ const BasicInfo = () => {
             Update
           </button>
         </div>
-        <div className="max-w-3xl p-6 bg-white rounded-lg border border-[#EEEEEE]">
+        <div className="p-6 bg-white rounded-lg border border-[#EEEEEE]">
           {/* Information Grid */}
-          <div className="grid grid-cols-2 gap-x-10 gap-y-4 mt-4 text-gray-700">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 mt-4 text-gray-700">
             <div>
               <p className="font-medium">Full Name</p>
-              <p>Abhishek Shankar</p>
+              <p>{userData.firstName}</p>
             </div>
             <div>
               <p className="font-medium">Date of Birth</p>
-              <p>18/10/1999</p>
+              <p>{userData.dateOfBirth}</p>
             </div>
             <div>
               <p className="font-medium">Mobile</p>
               <p className="flex items-center">
-                +91 9876543210 <FaCheckCircle className="text-green-500 ml-1" />
+                {userData.mobile}{" "}
+                <FaCheckCircle className="text-green-500 ml-1" />
               </p>
             </div>
             <div>
               <p className="font-medium">Email</p>
               <p className="flex items-center">
-                abhishekshankar123@gmail.com{" "}
+                {userData.email}{" "}
                 <FaCheckCircle className="text-green-500 ml-1" />
               </p>
             </div>
             <div className="flex items-center">
               <div>
                 <p className="font-medium">Aadhar</p>
-                <p>33XX XXXX XXXX XX22</p>
+                <p>{userData.aadhar}</p>
               </div>
               <button className="ml-2 text-sm text-white bg-red-500 px-2 py-1 rounded-lg">
                 Verify
@@ -49,10 +61,7 @@ const BasicInfo = () => {
             </div>
             <div className="col-span-2">
               <p className="font-medium">Address</p>
-              <p>
-                Sweet Home, Evergreen Street, Varkkala, Thiruvananthapuram,
-                Kerala, 695001, India
-              </p>
+              <p>{userData.address}</p>
             </div>
           </div>
 
@@ -83,19 +92,35 @@ const BasicInfo = () => {
       </div>
 
       {/* Right Sidebar */}
-      <div className="w-[250px] bg-white p-4 rounded-lg shadow border border-[#EEEEEE]">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">
+      <div className="w-full md:w-[250px] flex flex-col "> 
+        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <span className="text-gray border-[#9420CA] border-4 rounded-full w-4 h-4 flex items-center justify-center">
+            •
+          </span>
           Basic Information
         </h3>
         <ul className="space-y-2 text-gray-600">
-          <li className="text-[#333] font-medium">Basic Information</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Education</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Career Objective</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Key Skills</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Resume/Portfolio</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Preferences</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Work Experience</li>
-          <li className="hover:text-[#198FD9] cursor-pointer">Additional Documents</li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Education
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Career Objective
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Key Skills
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Resume/Portfolio
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Preferences
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Work Experience
+          </li>
+          <li className="cursor-pointer flex items-center gap-2">
+            <span className="text-gray">•</span> Additional Documents
+          </li>
         </ul>
       </div>
     </div>

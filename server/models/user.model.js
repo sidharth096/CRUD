@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your district"],
   },
+  pincode: {
+    type: String,
+    required: [true, "Please enter your pincode"],
+  },
   phone: {
     type: String, // Optional field
     required: false,
