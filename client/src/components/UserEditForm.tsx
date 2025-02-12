@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import close from "../assets/close.png";
 import greenTick from "../assets/greenTick.png";
@@ -20,15 +20,17 @@ type UserFormData = {
   parentGuardianNumber: string;
 };
 
-
-
 interface UserEditFormProps {
   isOpen: boolean;
   onClose: () => void;
-  setUserData: () => void;
+  setUserData: Dispatch<SetStateAction<UserFormData>>;
 }
 
-const UserEditForm: React.FC<UserEditFormProps> = ({ isOpen, onClose,setUserData }) => {
+const UserEditForm: React.FC<UserEditFormProps> = ({
+  isOpen,
+  onClose,
+  setUserData,
+}) => {
   const { id } = useParams<{ id: string }>();
   const [formData, setFormData] = useState<UserFormData>({
     firstName: "",
@@ -52,10 +54,13 @@ const UserEditForm: React.FC<UserEditFormProps> = ({ isOpen, onClose,setUserData
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/getUser/${id}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          `http://localhost:5000/api/user/getUser/${id}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -73,7 +78,9 @@ const UserEditForm: React.FC<UserEditFormProps> = ({ isOpen, onClose,setUserData
     fetchUserDetails();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -86,11 +93,14 @@ const UserEditForm: React.FC<UserEditFormProps> = ({ isOpen, onClose,setUserData
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/updateUser/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/user/updateUser/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       setUserData(data?.data);
       if (response.ok) {
@@ -116,7 +126,7 @@ const UserEditForm: React.FC<UserEditFormProps> = ({ isOpen, onClose,setUserData
 
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-      <div className="bg-white p-10 rounded-[20px] rounded-tr-[75px] w-4/10 relative">
+      <div className="bg-white p-10 rounded-[20px] rounded-tr-[75px]  w-full sm:w-6/8 xl:w-4/10  relative">
         <img
           onClick={onClose}
           className="absolute top-2 right-2 cursor-pointer h-[40px] w-[40px]"

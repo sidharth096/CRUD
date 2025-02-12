@@ -21,7 +21,7 @@ const NavBar = () => {
 
       {/* Navigation Links */}
       <div
-        className={`absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 transition-all duration-300 md:relative md:top-0 md:flex md:flex-row md:space-x-6 md:space-y-0 md:bg-transparent md:shadow-none md:py-0 ${
+        className={`absolute top-full right-0 w-1/2 bg-white shadow-md flex flex-col items-center space-y-4 py-4 transition-all duration-300 md:relative md:top-0 md:flex md:flex-row md:space-x-6 md:space-y-0 md:bg-transparent md:shadow-none md:py-0 ${
           isOpen ? "block" : "hidden"
         } md:flex`}
       >

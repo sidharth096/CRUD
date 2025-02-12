@@ -81,7 +81,7 @@ const UserAddForm: React.FC<UserAddFormProps> = ({ isOpen, onClose,refreshUsers 
 
   return (
     <div className="fixed inset-0 inset-0 bg-black/50   flex justify-center items-center">
-      <div className="bg-white p-10 rounded-[20px] rounded-tr-[75px] w-4/10 relative ">
+      <div className="bg-white p-10 rounded-[20px] rounded-tr-[75px]  w-full sm:w-6/8 xl:w-4/10 relative ">
         <img
           onClick={onClose}
           className="absolute top-2 right-2 cursor-pointer h-[40px] w-[40px]"

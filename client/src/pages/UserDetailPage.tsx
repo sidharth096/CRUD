@@ -6,6 +6,7 @@ import Education from "../components/Education";
 import KeySkills from "../components/KeySkill";
 import PortfolioExperience from "../components/PortFolioExperience";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 // Define the UserFormData Type
 interface UserFormData {
@@ -85,9 +86,11 @@ const UserDetailPage = () => {
             <Education />
             <KeySkills />
             <PortfolioExperience />
+            
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
